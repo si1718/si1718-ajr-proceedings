@@ -10,6 +10,9 @@ var Proceeding = require("./Proceeding");
 
 
 /*********************************A P I***************************************/
+/**
+ * Reference: https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+ */
 // GET a collection
 router.get('/', function(req, res) {
     Proceeding.find({}, (err, proceedings) => {

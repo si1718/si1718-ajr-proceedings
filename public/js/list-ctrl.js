@@ -22,11 +22,11 @@ angular.module("ProceedingManagerApp")
         
         $scope.searchProceeding = function() {
             $http
-                .get(API_HTTP, {params: $scope.searchProceeding})
+                .get(API_HTTP, {params: $scope.search_proceeding})
                 .then((response) => {
                     console.log(response);
                      $scope.proceedings = response.data;
-                     $scope.searchProceeding = {}
+                     $scope.search_proceeding = {}
                 });
         };
         

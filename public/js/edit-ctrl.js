@@ -11,7 +11,7 @@ angular.module("ProceedingManagerApp")
                 .then((response) => {
                     $scope.updated_proceeding = response.data;
                     
-                    if($scope.new_proceeding.coeditors.length > 0) {
+                    if($scope.updated_proceeding.coeditors.length > 0) {
                         $scope.updated_proceeding.coeditors = $scope.updated_proceeding.coeditors.join("\n");
                     }
                     delete $scope.updated_proceeding._id;
@@ -21,7 +21,7 @@ angular.module("ProceedingManagerApp")
         }
         
         $scope.updateProceeding = function() {
-            if($scope.new_proceeding.coeditors.length > 0) {
+            if($scope.updated_proceeding.coeditors.length > 0) {
                 $scope.updated_proceeding.coeditors = $scope.updated_proceeding.coeditors.split("\n");
             }
             

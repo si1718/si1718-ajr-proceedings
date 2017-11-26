@@ -15,7 +15,7 @@ var Proceeding = require("./Proceeding");
  */
 // GET a collection
 router.get('/', function(req, res) {
-    Proceeding.find({}, (err, proceedings) => {
+    Proceeding.find(req.query, (err, proceedings) => {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             res.sendStatus(500); // internal server error

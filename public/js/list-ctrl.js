@@ -24,9 +24,8 @@ angular.module("ProceedingManagerApp")
             $http
                 .get(API_HTTP, {params: $scope.search_proceeding})
                 .then((response) => {
-                    console.log(response);
                      $scope.proceedings = response.data;
-                     $scope.search_proceeding = {}
+                     $scope.search_proceeding = {};
                 });
         };
         

@@ -7,12 +7,14 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "helmet": "^3.9.0",
+    "bower": "^1.8.2",
     "mongoose": "^4.13.5"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "cd public && bower install"
   },
   "author": "",
   "license": "ISC"

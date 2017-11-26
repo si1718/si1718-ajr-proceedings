@@ -7,10 +7,10 @@ angular.module("ProceedingManagerApp", ["ngRoute"])
         $routeProvider.when("/", {
             templateUrl: "list.html",
             controller: "ListCtrl"
-        }).when("/proceeding/edit/:idProceeding", {
+        }).when("/edit/:idProceeding", {
             templateUrl: "edit.html",
             controller: "EditCtrl"
-        }).when("/proceeding/create", {
+        }).when("/create", {
             templateUrl: "create.html",
             controller: "CreateCtrl"
         });

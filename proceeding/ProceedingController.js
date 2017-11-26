@@ -98,7 +98,7 @@ router.post('/', function(req, res) {
                     }
                 }
                 else {
-                    console.log("INFO: Adding dissertation " + JSON.stringify(new_proceeding, 2, null));
+                    console.log("INFO: Adding proceeding " + JSON.stringify(new_proceeding, 2, null));
                     res.sendStatus(201); // created
                 }
             });
@@ -185,7 +185,7 @@ router.delete('/:idProceeding', function(req, res) {
 
 // NOT ALLOWED OPERATIONS
 
-// POST a specific dissertaiton
+// POST a specific proceeding
 router.post("/:idProceeding", function(req, res) {
     var idProceeding = req.params.idProceeding;
     console.log("WARNING: New POST request to /proceedings/" + idProceeding + ", sending 405...");

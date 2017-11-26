@@ -1,0 +1,61 @@
+<!-- Header part -->
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-1">List of Proceedings</h1>
+        <p>This is a table of all proceeding</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Create</a></p>
+    </div>
+</div>
+
+<!-- Table part -->
+<div class="container">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Year</th>
+                            <th>Editor</th>
+                            <th>Coeditors</th>
+                            <th>Publisher</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="proceeding in proceedings">
+                            <td><a href="#!"></a>{{proceeding.title}}</td>
+                            <td>{{proceeding.year}}</td>
+                            <td>{{proceeding.editor}}</td>
+                            <td><span class="badge" ng-repeat="coeditor in proceeding.coeditors">{{coeditor}}</span></td>
+                            <td>{{proceeding.publisher}}</td>
+                            <td>{{proceeding.city}}</td>
+                            <td>{{proceeding.country}}</td>
+                            <td>
+                                <button ng-click="deleteProceeding(proceeding.idProceeding)" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfooter>
+                        <tr>
+                            <td><input id="title" class="form-control" ng-model="searchProceeding.title" placeholder="Title" /></td>
+                            <td><input id="year" class="form-control" ng-model="searchProceeding.year" placeholder="Year" /></td>
+                            <td><input id="editor" class="form-control" ng-model="searchProceeding.editor" placeholder="Editor" /></td>
+                            <td><input id="coeditors" class="form-control" ng-model="searchProceeding.coeditors" placeholder="Coeditors" /></td>
+                            <td><input id="publisher" class="form-control" ng-model="searchProceeding.publisher" placeholder="Publisher" /></td>
+                            <td><input id="city" class="form-control" ng-model="searchProceeding.city" placeholder="City" /></td>
+                            <td><input id="country" class="form-control" ng-model="searchProceeding.country" placeholder="Country" /></td>
+                            <td>
+                                <button ng-click="searchProceeding()" class="btn btn-primary">Search</button>
+                            </td>
+                        </tr>
+                    </tfooter>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

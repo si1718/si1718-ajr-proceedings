@@ -17,7 +17,16 @@ angular.module("ProceedingManagerApp")
                 .then((response) => {
                     $location.path("/");
                 }, (err) => {
-                    alert(err.data);
+                    switch(err.status) {
+                        case 422:
+                            alert('The proceeding is not well-formed: it is necessary a title, year and editor and unique identifier');
+                            break;
+                        case 409:
+                            alert('The proceeding already exists');
+                            break;
+                        default:
+                            alert('The proceeding is not correct');
+                    }
                 });
         };
         

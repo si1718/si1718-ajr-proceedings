@@ -26,6 +26,14 @@ angular.module("ProceedingManagerApp")
                 .then((response) => {
                      $scope.proceedings = response.data;
                      $scope.search_proceeding = {};
+                }, (err) => {
+                    switch(err.status) {
+                        case 404:
+                            alert('There are no proceedings that match your search');
+                            break;
+                        default:
+                            alert('The search is not correct');
+                    }
                 });
         };
         

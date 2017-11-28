@@ -30,7 +30,13 @@ angular.module("ProceedingManagerApp")
                 .then((response) => {
                     $location.path("/");
                 }, (err) => {
-                    alert(err.data);
+                    switch(err.status) {
+                        case 400:
+                            alert('The proceeding has not a unique identifier');
+                            break;
+                        default:
+                            alert('The proceeding is not correct');
+                    }
                 });
         };
         

@@ -54,6 +54,12 @@
                 <label for="country">Country</label>
                 <input ng-model="updated_proceeding.country" id="country" class="form-control" value="{{updated_proceeding.country}}" />
             </div>
+            <div class="form-group">
+                <label for="keywords">Keywords</label>
+                <textarea class="form-control" id="keywords" ng-model="updated_proceeding.keywords"
+                    rows="3" aria-describedby="keywordss_help"  value="{{updated_proceeding.keywords}}"></textarea>
+                 <small id="keywords_help" class="form-text text-muted">Separate the keywords by commas</small>
+            </div>
             <button type="submit" class="btn btn-primary" ng-click="updateProceeding()" >Submit</button>
         </form>
     </div>

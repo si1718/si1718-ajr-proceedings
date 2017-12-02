@@ -1,6 +1,6 @@
 /*global angular*/
 
-var API_HTTP = "/api/v1/proceedings"
+var API_HTTP = "/api/v1/proceedings";
 
 angular.module("ProceedingManagerApp")
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) {
@@ -11,18 +11,26 @@ angular.module("ProceedingManagerApp")
                 .then((response) => {
                     $scope.updated_proceeding = response.data;
                     
-                    if($scope.updated_proceeding.coeditors.length > 0) {
+                    if($scope.updated_proceeding.coeditors && $scope.updated_proceeding.coeditors.length > 0) {
                         $scope.updated_proceeding.coeditors = $scope.updated_proceeding.coeditors.join("\n");
                     }
+                    if($scope.updated_proceeding.keywords && $scope.updated_proceeding.keywords.length > 0) {
+                        $scope.updated_proceeding.keywords = $scope.updated_proceeding.keywords.join(",");
+                    }
+                    
                     delete $scope.updated_proceeding._id;
                 }, (err) => {
-                    alert(err.data);
+                    $scope.errorMessage = "An accoured a unexpected error: sorry!";
+                    console.log(err.data);
                 });
         }
         
         $scope.updateProceeding = function() {
-            if($scope.updated_proceeding.coeditors.length > 0) {
+            if($scope.updated_proceeding.coeditors && $scope.updated_proceeding.coeditors.length > 0) {
                 $scope.updated_proceeding.coeditors = $scope.updated_proceeding.coeditors.split("\n");
+            }
+            if($scope.updated_proceeding.keywords && $scope.updated_proceeding.keywords.length > 0) {
+                $scope.updated_proceeding.keywords = $scope.updated_proceeding.keywords.split(",");
             }
             
             $http
@@ -32,13 +40,13 @@ angular.module("ProceedingManagerApp")
                 }, (err) => {
                     switch(err.status) {
                         case 400:
-                            alert('The proceeding has not a unique identifier');
+                            $scope.errorMessage = 'The proceeding has not a unique identifier';
                             break;
                         case 404:
-                            alert('The proceeding has not found');
+                            $scope.errorMessage = 'The proceeding has not found';
                             break;
                         default:
-                            alert('The proceeding is not correct');
+                            $scope.errorMessage = 'The proceeding is not correct';
                     }
                 });
         };

@@ -38,6 +38,7 @@
                         <th>Publisher</th>
                         <th>City</th>
                         <th>Country</th>
+                        <th>Keywords</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -46,11 +47,12 @@
                         <td><a href="#!/edit/{{proceeding.idProceeding}}">{{proceeding.title}}</a></td>
                         <td>{{proceeding.year}}</td>
                         <td>{{proceeding.editor}}</td>
-                        <td><span class="badge" ng-repeat="coeditor in proceeding.coeditors">{{coeditor}}</span></td>
+                        <td>{{proceeding.coeditors.join("\n")}}</td>
                         <td>{{proceeding.isbn}}</td>
                         <td>{{proceeding.publisher}}</td>
                         <td>{{proceeding.city}}</td>
                         <td>{{proceeding.country}}</td>
+                        <td><span class="badge" ng-repeat="keyword in proceeding.keywords">{{keyword}}</span></td>
                         <td>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$id}}">Delete</button>
                             <!-- Modal -->
@@ -88,6 +90,7 @@
                         <td><input id="publisher" class="form-control" ng-model="search_proceeding.publisher" placeholder="Publisher" /></td>
                         <td><input id="city" class="form-control" ng-model="search_proceeding.city" placeholder="City" /></td>
                         <td><input id="country" class="form-control" ng-model="search_proceeding.country" placeholder="Country" /></td>
+                        <td><input id="keywords" class="form-control" ng-model="search_proceeding.keywords" placeholder="Keywords" /></td>
                         <td>
                             <button id="search" ng-click="searchProceeding()" class="btn btn-primary">Search</button>
                         </td>

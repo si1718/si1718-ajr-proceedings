@@ -158,7 +158,8 @@ router.post('/', function(req, res) {
                 publisher: new_proceeding.publisher,
                 city: new_proceeding.city,
                 country: new_proceeding.country,
-                idProceeding: idProceeding
+                idProceeding: idProceeding,
+                keywords: new_proceeding.keywords
             }, (err, proceeding) => {
                 if (err) {
                     //Mongoose Errors: http://thecodebarbarian.com/mongoose-error-handling

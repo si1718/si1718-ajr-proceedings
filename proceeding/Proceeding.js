@@ -12,7 +12,8 @@ var ProceedingSchema = new mongoose.Schema({
     publisher: { type: String, required: false },
     city: { type: String, required: false },
     country: { type: String, required: false },
-    idProceeding: { type: String, required: true, unique: true }
+    idProceeding: { type: String, required: true, unique: true },
+    keywords: { type: [String], required: false }
 });
 
 mongoose.model("Proceeding", ProceedingSchema);

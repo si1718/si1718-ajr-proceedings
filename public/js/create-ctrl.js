@@ -9,8 +9,11 @@ angular.module("ProceedingManagerApp")
         }
         
         $scope.createProceeding = function() {
-            if($scope.new_proceeding.coeditors.length > 0) {
+            if($scope.new_proceeding.coeditors && $scope.new_proceeding.coeditors.length > 0) {
                 $scope.new_proceeding.coeditors = $scope.new_proceeding.coeditors.split("\n");
+            }
+            if($scope.new_proceeding.keywords && $scope.new_proceeding.keywords.length > 0) {
+                $scope.new_proceeding.keywords = $scope.new_proceeding.keywords.split(",");
             }
             $http
                 .post(API_HTTP, $scope.new_proceeding)

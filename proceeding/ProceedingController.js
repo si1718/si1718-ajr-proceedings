@@ -55,6 +55,44 @@ router.get('/:idProceeding', function(req, res) {
     }
 });
 
+// GET a collection
+router.get('/stats/map', function(req, res) {
+    Proceeding.find({}, (err, proceedings) => {
+        if (err) {
+            console.error('WARNING: Error getting data from DB');
+            res.sendStatus(500); // internal server error
+        }
+        else {
+            console.log("INFO: New GET request to /proceedings/stats");
+            
+            var countries = require("i18n-iso-countries");
+            var counter = {};
+            
+            for(var i=0; i<proceedings.length; i++) {
+                var text = "" + proceedings[i].country;
+                
+                var country = countries.getAlpha2Code(text, 'es') 
+                    || countries.getAlpha2Code(text, 'en')
+                    || countries.alpha3ToAlpha2(text, 'es')
+                    || countries.alpha3ToAlpha2(text, 'en');
+                
+                if(country) {
+                    country = country.toLowerCase();
+                    counter[country] = 1 + (counter[country] || 0);
+                }
+            }
+            
+            var data = [];
+            
+            for (var iso in counter) {
+                data.push([iso, counter[iso]]);
+            }
+            
+            res.send(data);
+        }
+    });
+});
+
 // POST over a collection
 router.post('/', function(req, res) {
     var new_proceeding = req.body;

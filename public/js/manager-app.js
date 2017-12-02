@@ -13,5 +13,8 @@ angular.module("ProceedingManagerApp", ["ngRoute"])
         }).when("/create", {
             templateUrl: "create.html",
             controller: "CreateCtrl"
+        }).when("/stats", {
+            templateUrl: "stats.html",
+            controller: "StatsCtrl"
         });
 });

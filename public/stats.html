@@ -1,0 +1,23 @@
+<!-- Header part -->
+<div class="col-xs-12">
+    <div class="row">
+        <h1 class="display-1">Stats</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div ng-show="errorMessage">
+        <div class="alert alert-danger fade in">
+            <strong>Error!</strong> {{ errorMessage }}
+        </div>
+    </div>
+</div>
+
+<br>
+<!-- Stats part -->
+<div class="col-xs-12" ng-hide="hideContent">
+    <div class="row">
+        <div id="stats_map"></div>
+    </div>
+</div>

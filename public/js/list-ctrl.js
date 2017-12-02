@@ -9,6 +9,9 @@ angular.module("ProceedingManagerApp")
                 .get(API_HTTP)
                 .then((response) => {
                     $scope.proceedings = response.data;
+                }, (error) => {
+                    $scope.errorMessage = "An unexpected error has ocurred.";
+                    $scope.hideTable = true;
                 });
         }
         
@@ -17,6 +20,9 @@ angular.module("ProceedingManagerApp")
                 .delete(API_HTTP + "/" + idProceeding)
                 .then((response) => {
                     refresh();
+                    $scope.successMessage = "The proceeding with id " + idProceeding + " was deleted successfully.";
+                }, (error) => {
+                    $scope.errorMessage = "There was an error while deleting the proceeding with id " + idProceeding;
                 });
         };
         
@@ -29,10 +35,10 @@ angular.module("ProceedingManagerApp")
                 }, (err) => {
                     switch(err.status) {
                         case 404:
-                            alert('There are no proceedings that match your search');
+                            $scope.errorMessage = "There are no proceedings that match your search";
                             break;
                         default:
-                            alert('The search is not correct');
+                            $scope.errorMessage = "The search is not correct";
                     }
                 });
         };

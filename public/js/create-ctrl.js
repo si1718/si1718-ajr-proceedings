@@ -19,13 +19,13 @@ angular.module("ProceedingManagerApp")
                 }, (err) => {
                     switch(err.status) {
                         case 422:
-                            alert('The proceeding is not well-formed: it is necessary a title, year and editor and unique identifier');
+                            $scope.errorMessage = 'The proceeding is not well-formed: it is necessary a title, year and editor and unique identifier';
                             break;
                         case 409:
-                            alert('The proceeding already exists');
+                            $scope.errorMessage = 'The proceeding already exists';
                             break;
                         default:
-                            alert('The proceeding is not correct');
+                            $scope.errorMessage = 'The proceeding is not correct';
                     }
                 });
         };

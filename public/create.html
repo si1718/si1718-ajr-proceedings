@@ -1,14 +1,23 @@
 <!-- Header part -->
-<div class="jumbotron">
-    <div class="container">
+<div class="col-xs-12">
+    <div class="row">
         <h1 class="display-1">Create a Proceeding</h1>
         <p>This is a view where you can create a simple proceeding</p>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Go to List</a></p>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div ng-show="errorMessage">
+        <div class="alert alert-danger fade in">
+            <strong>Error!</strong> {{ errorMessage }}
+        </div>
     </div>
 </div>
 
 <!-- Form part -->
-<div class="container">
+<div class="container" ng-hide="hideForm">
     <div class="col-xs-12">
         <div class="row">
             <form>

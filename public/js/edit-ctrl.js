@@ -34,6 +34,9 @@ angular.module("ProceedingManagerApp")
                         case 400:
                             alert('The proceeding has not a unique identifier');
                             break;
+                        case 404:
+                            alert('The proceeding has not found');
+                            break;
                         default:
                             alert('The proceeding is not correct');
                     }

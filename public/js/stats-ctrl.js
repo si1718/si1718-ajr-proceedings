@@ -9,7 +9,13 @@ angular.module("ProceedingManagerApp")
                 .get(API_HTTP + "/stats/map")
                 .then((response) => {
                     stats_map(response.data);
-                    
+                }, (error) => {
+                    $scope.errorMessage = "An unexpected error has ocurred.";
+                });
+            $http
+                .get(API_HTTP + "/stats/year")
+                .then((response) => {
+                    stats_year(response.data.years, response.data.data);
                 }, (error) => {
                     $scope.errorMessage = "An unexpected error has ocurred.";
                 });
@@ -60,6 +66,44 @@ function stats_map(data) {
                 enabled: true,
                 format: '{point.name}'
             }
+        }]
+    });
+}
+
+/**
+ * Reference: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-basic/
+ */
+function stats_year(years, data) {
+    Highcharts.chart('stats_year', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Proceedings by years'
+        },
+        subtitle: {
+            text: 'Resume of proceedings by year'
+        },
+        xAxis: {
+            categories: years,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Number'
+            }
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Years',
+            data: data
+    
         }]
     });
 }

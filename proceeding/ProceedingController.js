@@ -55,7 +55,7 @@ router.get('/:idProceeding', function(req, res) {
     }
 });
 
-// GET a collection
+// GET a stats for map
 router.get('/stats/map', function(req, res) {
     Proceeding.find({}, (err, proceedings) => {
         if (err) {
@@ -63,7 +63,7 @@ router.get('/stats/map', function(req, res) {
             res.sendStatus(500); // internal server error
         }
         else {
-            console.log("INFO: New GET request to /proceedings/stats");
+            console.log("INFO: New GET request to /proceedings/stats/map");
             
             var countries = require("i18n-iso-countries");
             var counter = {};
@@ -89,6 +89,46 @@ router.get('/stats/map', function(req, res) {
             }
             
             res.send(data);
+        }
+    });
+});
+
+
+// GET a stats for bar
+router.get('/stats/year', function(req, res) {
+    Proceeding.find({}, (err, proceedings) => {
+        if (err) {
+            console.error('WARNING: Error getting data from DB');
+            res.sendStatus(500); // internal server error
+        }
+        else {
+            console.log("INFO: New GET request to /proceedings/stats/year");
+            
+            var years = [];
+            var counter = {};
+            
+            for(var i=0; i<proceedings.length; i++) {
+                var year = proceedings[i].year;
+                if(year) {
+                    years.push(year);
+                }
+            }
+            years.sort();
+            
+            for(i=0; i<years.length; i++) {
+                counter[years[i]] = 1 + (counter[years[i]] || 0);
+            }
+            
+            var data = [];
+            years = years.filter( function( item, index, inputArray ) {
+                return inputArray.indexOf(item) == index;
+            });
+            
+            for (var num in counter) {
+                data.push(counter[num]);
+            }
+            
+            res.send({'years':years, 'data':data});
         }
     });
 });

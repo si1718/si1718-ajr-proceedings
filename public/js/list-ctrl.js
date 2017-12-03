@@ -1,6 +1,6 @@
 /*global angular*/
 
-var API_HTTP = "/api/v1/proceedings"
+var API_HTTP = "/api/v1/proceedings";
 
 angular.module("ProceedingManagerApp")
     .controller("ListCtrl", ["$scope", "$http", function($scope, $http) {

@@ -16,5 +16,7 @@ angular.module("ProceedingManagerApp", ["ngRoute"])
         }).when("/stats", {
             templateUrl: "stats.html",
             controller: "StatsCtrl"
+        }).otherwise({
+            redirectTo: '/'
         });
 });

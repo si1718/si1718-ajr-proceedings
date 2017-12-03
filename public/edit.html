@@ -8,11 +8,30 @@
     </div>
 </div>
 
-<div class="row">
+<div class="col-xs-12">
     <div ng-show="errorMessage">
         <div class="alert alert-danger fade in">
             <strong>Error!</strong> {{ errorMessage }}
         </div>
+    </div>
+</div>
+
+<div class="col-xs-12" ng-show="conference">
+    <div class="row">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>Confenrence</h3>
+                <h6 class="card-subtitle mb-2 text-muted">{{conference.conference}}</h6>
+                <p class="card-text">
+                    <p>Acronym: {{conference.acronym}}</p>
+                    <p>Edition: {{conference.edition}}</p>
+                    <p>City: {{conference.city}}</p>
+                    <p>Country: {{conference.country}}</p>
+                </p>
+                <a href="https://si1718-jf-conferences.herokuapp.com/#!/edit/{{conference.idConference}}" class="btn btn-primary" role="button">Go to conference</a>
+            </div>
+        </div>
+        
     </div>
 </div>
 

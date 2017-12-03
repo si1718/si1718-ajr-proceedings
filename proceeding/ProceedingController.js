@@ -147,7 +147,7 @@ router.post('/', function(req, res) {
             res.sendStatus(422); // unprocessable entity
         }
         else {
-            var idProceeding = generateId(req.body.isbn, req.body.title, req.body.editor, req.body.year);
+            var idProceeding = generateId(req.body.isbn, req.body.title, req.body.editor.name, req.body.year);
             
             Proceeding.create({
                 editor: new_proceeding.editor,

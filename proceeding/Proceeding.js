@@ -4,7 +4,11 @@
 var mongoose = require("mongoose");
 
 var ProceedingSchema = new mongoose.Schema({
-    editor: { type: String, required: true },
+    editor: { type: {
+        uri: {String, required: true},
+        name: {String, required: true},
+        viewURL: {String, required: false}
+    }, required: true },
     coeditors: { type: [String], required: false },
     title: { type: String, required: true },
     year: { type: Number, required: true },

@@ -17,7 +17,7 @@
 </div>
 
 <!-- Form part -->
-<div class="container" ng-hide="hideForm">
+<div class="" ng-hide="hideForm">
     <div class="col-xs-12">
         <div class="row">
             <form>
@@ -31,7 +31,10 @@
                 </div>
                 <div class="form-group">
                     <label for="editor">Editor</label>
-                    <input ng-model="new_proceeding.editor" id="editor" class="form-control" />
+                    <input type="hidden" ng-model="new_proceeding.editor.uri" id="editor_uri" value="{{new_proceeding.editor.uri}}"/>
+                    <input ng-readonly="change_editor=='Change'" ng-model="new_proceeding.editor.name" id="editor_name" class="form-control" value="{{new_proceeding.editor.name}}" />
+                    <input type="hidden" ng-model="new_proceeding.editor.viewURL" id="editor_viewURL" value="{{new_proceeding.editor.viewURL}}"/>
+                    <button class="btn btn-primary" ng-click="statusEditor()" >{{change_editor}}</button>
                 </div>
                 <div class="form-group">
                     <label for="coeditors">Coeditor</label>

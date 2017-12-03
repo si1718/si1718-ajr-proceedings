@@ -23,6 +23,8 @@ angular.module("ProceedingManagerApp")
                     $scope.errorMessage = "An accoured a unexpected error: sorry!";
                     console.log(err.data);
                 });
+                
+            $scope.change_editor = 'Validate';
         }
         
         $scope.updateProceeding = function() {
@@ -31,6 +33,10 @@ angular.module("ProceedingManagerApp")
             }
             if($scope.updated_proceeding.keywords && $scope.updated_proceeding.keywords.length > 0) {
                 $scope.updated_proceeding.keywords = $scope.updated_proceeding.keywords.split(",");
+            }
+            
+            if($scope.change_editor == 'Validate') {
+                $scope.statusEditor();
             }
             
             $http
@@ -49,6 +55,35 @@ angular.module("ProceedingManagerApp")
                             $scope.errorMessage = 'The proceeding is not correct';
                     }
                 });
+        };
+        
+        $scope.statusEditor = function() {
+            if($scope.change_editor == 'Validate') {
+                $http
+                    .get('https://si1718-dfr-researchers.herokuapp.com/api/v1/researchers?search='+$scope.updated_proceeding.editor.name)
+                    .then((response) => {
+                        var researcher = response.data[0];
+                        if(researcher) {
+                            $scope.updated_proceeding.editor = {
+                                uri: 'http://si1718-dfr-researchers.herokuapp.com/api/v1/researchers/' + researcher.idResearcher,
+                                name: researcher.name,
+                                viewURL: researcher.viewURL
+                            };
+                        } else {
+                            $scope.updated_proceeding.editor = {
+                                uri: 'http://si1718-dfr-researchers.herokuapp.com/api/v1/researchers/0',
+                                name: $scope.updated_proceeding.editor.name,
+                                viewURL: 'https://si1718-dfr-researchers.herokuapp.com/#!/researchers/0/edit'
+                            };
+                        }
+                        $scope.change_editor = 'Change';
+                    }, (err) => {
+                        $scope.errorMessage = "An accoured a unexpected error: sorry!";
+                        console.log(err.data);
+                });
+            } else {
+                $scope.change_editor = 'Validate';
+            }
         };
         
         initialice();

@@ -15,7 +15,76 @@ var Proceeding = require("./Proceeding");
  */
 // GET a collection
 router.get('/', function(req, res) {
-    Proceeding.find(req.query, (err, proceedings) => {
+    var query = [];
+    
+    if(req.query.hasOwnProperty('title')) {
+        query.push({
+            $or: [
+                {'title': {$regex: '.*' + req.query['title'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    if(req.query.hasOwnProperty('editor')) {
+         query.push({
+            $or: [
+                {'editor.name': {$regex: '.*' + req.query['editor'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    if(req.query.hasOwnProperty('coeditors')) {
+         query.push({
+            $or: [
+                {'coeditors': {$regex: '.*' + req.query['coeditors'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    if(req.query.hasOwnProperty('isbn')) {
+         query.push({
+            $or: [
+                {'isbn': {$regex: '.*' + req.query['isbn'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    if(req.query.hasOwnProperty('publisher')) {
+         query.push({
+            $or: [
+                {'publisher': {$regex: '.*' + req.query['publisher'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    if(req.query.hasOwnProperty('city')) {
+         query.push({
+            $or: [
+                {'city': {$regex: '.*' + req.query['city'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    if(req.query.hasOwnProperty('country')) {
+         query.push({
+            $or: [
+                {'country': {$regex: '.*' + req.query['country'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    if(req.query.hasOwnProperty('keywords')) {
+         query.push({
+            $or: [
+                {'keywords': {$regex: '.*' + req.query['keywords'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
+    
+    query = (query.length > 0) ? {$and: query} : {};
+    
+    Proceeding.find(query, (err, proceedings) => {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             res.sendStatus(500); // internal server error

@@ -49,6 +49,14 @@ router.get('/', function(req, res) {
         });
     }
     
+    if(req.query.hasOwnProperty('year')) {
+         query.push({
+            $or: [
+                {'year': {$regex: '.*' + req.query['year'] + '.*', $options: 'i'}}
+            ]
+        });
+    }
+    
     if(req.query.hasOwnProperty('publisher')) {
          query.push({
             $or: [

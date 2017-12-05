@@ -52,7 +52,7 @@ router.get('/', function(req, res) {
     if(req.query.hasOwnProperty('year')) {
          query.push({
             $or: [
-                {'year': {$regex: '.*' + req.query['year'] + '.*', $options: 'i'}}
+                {'year': req.query['year']}
             ]
         });
     }

@@ -1,21 +1,35 @@
 /*global angular, Highcharts*/
 
-var API_HTTP = "/api/v1/proceedings"
+var API_HTTP = "/api/v1"
 
 angular.module("ProceedingManagerApp")
     .controller("StatsCtrl", ["$scope", "$http", function($scope, $http) {
         function refresh(){
             $http
-                .get(API_HTTP + "/stats/map")
+                .get(API_HTTP + "/proceedings/stats/map")
                 .then((response) => {
                     stats_map(response.data);
                 }, (error) => {
                     $scope.errorMessage = "An unexpected error has ocurred.";
                 });
             $http
-                .get(API_HTTP + "/stats/year")
+                .get(API_HTTP + "/proceedings/stats/year")
                 .then((response) => {
                     stats_year(response.data.years, response.data.data);
+                }, (error) => {
+                    $scope.errorMessage = "An unexpected error has ocurred.";
+                });
+            $http
+                .get(API_HTTP + "/tweets/stats/day")
+                .then((response) => {
+                    tweets_day(response.data.days, response.data.data);
+                }, (error) => {
+                    $scope.errorMessage = "An unexpected error has ocurred.";
+                });
+            $http
+                .get(API_HTTP + "/tweets/stats/month")
+                .then((response) => {
+                    tweets_month(response.data.months, response.data.data);
                 }, (error) => {
                     $scope.errorMessage = "An unexpected error has ocurred.";
                 });
@@ -105,5 +119,85 @@ function stats_year(years, data) {
             data: data
     
         }]
+    });
+}
+
+/**
+ * Reference: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/line-basic/
+ */
+function tweets_day(days, data) {
+    Highcharts.chart('tweets_day', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Tweets daily'
+        },
+        subtitle: {
+            text: 'Tweets based on keywords daily'
+        },
+        xAxis: {
+            categories: days,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Appereances'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                }
+            }
+        },
+        series: data
+    });
+}
+
+/**
+ * Reference: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/line-labels/
+ */
+function tweets_month(months, data) {
+    Highcharts.chart('tweets_month', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Tweets by month'
+        },
+        subtitle: {
+            text: 'Tweets based on keywords monthly'
+        },
+        xAxis: {
+            categories: months,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Appereances'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                }
+            }
+        },
+        series: data
     });
 }

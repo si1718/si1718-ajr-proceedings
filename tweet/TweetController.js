@@ -27,6 +27,45 @@ router.get('/', function(req, res) {
     });
 });
 
+// GET a stats for bar
+router.get('/stats/day', function(req, res) {
+    Tweet.find({}, (err, tweets) => {
+        if (err) {
+            console.error('WARNING: Error getting data from DB');
+            res.sendStatus(500); // internal server error
+        }
+        else {
+            console.log("INFO: New GET request to /tweets/stats/day");
+            
+            var days = [];
+            var data = [];
+            var aux = [];
+            
+            for(var i=0; i<tweets.length; i++) {
+                var day = tweets[i].date;
+                if(days.indexOf(day) == -1) {
+                    days.push(day);
+                }
+            }
+            days.sort();
+            
+            for(i=0; i<tweets.length; i++) {
+                var size = aux.indexOf(tweets[i].key);
+                var index = days.indexOf(tweets[i].date);
+                if(size > -1) {
+                    data[size].data[index] = tweets[i].statistic;
+                } else {
+                    aux.push(tweets[i].key);
+                    var tweet_data = new Array(days.length);
+                    tweet_data[index] = tweets[i].statistic;
+                    data.push({"name":tweets[i].key, "data":tweet_data});
+                }
+            }
+            
+            res.send({'days':days, 'data':data});
+        }
+    });
+});
 
 // GET a stats for bar
 router.get('/stats/month', function(req, res) {
@@ -38,31 +77,34 @@ router.get('/stats/month', function(req, res) {
         else {
             console.log("INFO: New GET request to /tweets/stats/month");
             
-            var years = [];
-            var counter = {};
+            var months = [];
+            var data = [];
+            var aux = [];
             
             for(var i=0; i<tweets.length; i++) {
-                var year = tweets[i].year;
-                if(year) {
-                    years.push(year);
+                var day = tweets[i].date.split('/');
+                var mm = day[1]+"/"+day[2];
+                if(months.indexOf(mm) == -1) {
+                    months.push(mm);
                 }
             }
-            years.sort();
+            months.sort();
             
-            for(i=0; i<years.length; i++) {
-                counter[years[i]] = 1 + (counter[years[i]] || 0);
+            for(i=0; i<tweets.length; i++) {
+                var size = aux.indexOf(tweets[i].key);
+                var day = tweets[i].date.split('/');
+                var index = months.indexOf(day[1]+"/"+day[2]);
+                if(size > -1) {
+                    data[size].data[index] = tweets[i].statistic;
+                } else {
+                    aux.push(tweets[i].key);
+                    var tweet_data = new Array(months.length);
+                    tweet_data[index] = tweets[i].statistic;
+                    data.push({"name":tweets[i].key, "data":tweet_data});
+                }
             }
             
-            var data = [];
-            years = years.filter( function( item, index, inputArray ) {
-                return inputArray.indexOf(item) == index;
-            });
-            
-            for (var num in counter) {
-                data.push(counter[num]);
-            }
-            
-            res.send({'years':years, 'data':data});
+            res.send({'months':months, 'data':data});
         }
     });
 });

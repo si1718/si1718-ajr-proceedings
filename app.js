@@ -15,5 +15,7 @@ var BASE_PATH = "/api/v1";
 var ProceedingController = require("./proceeding/ProceedingController");
 app.use(BASE_PATH + "/proceedings", ProceedingController);
 
+var TweetController = require("./tweet/TweetController");
+app.use(BASE_PATH + "/tweets", TweetController);
 
 module.exports = app;

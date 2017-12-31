@@ -1,33 +1,33 @@
 /*global angular, Highcharts*/
 
-var API_HTTP = "/api/v1"
+var API_BASE = "/api/v1"
 
 angular.module("ProceedingManagerApp")
     .controller("StatsCtrl", ["$scope", "$http", function($scope, $http) {
         function refresh(){
             $http
-                .get(API_HTTP + "/proceedings/stats/map")
+                .get(API_BASE + "/proceedings/stats/map")
                 .then((response) => {
                     stats_map(response.data);
                 }, (error) => {
                     $scope.errorMessage = "An unexpected error has ocurred.";
                 });
             $http
-                .get(API_HTTP + "/proceedings/stats/year")
+                .get(API_BASE + "/proceedings/stats/year")
                 .then((response) => {
                     stats_year(response.data.years, response.data.data);
                 }, (error) => {
                     $scope.errorMessage = "An unexpected error has ocurred.";
                 });
             $http
-                .get(API_HTTP + "/tweets/stats/day")
+                .get(API_BASE + "/tweets/stats/day")
                 .then((response) => {
                     tweets_day(response.data.days, response.data.data);
                 }, (error) => {
                     $scope.errorMessage = "An unexpected error has ocurred.";
                 });
             $http
-                .get(API_HTTP + "/tweets/stats/month")
+                .get(API_BASE + "/tweets/stats/month")
                 .then((response) => {
                     tweets_month(response.data.months, response.data.data);
                 }, (error) => {

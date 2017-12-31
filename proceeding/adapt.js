@@ -5,12 +5,14 @@ request.get('https://si1718-ajr-proceedings.herokuapp.com/api/v1/proceedings', {
     var editor_name = "";
     
     for(var i=0; i<body.length; i++) {
-        editor_name = body[i].editor.split(',');
-        search(body[i],editor_name);
-        if(typeof body[i].editor === 'string') {
-            console.log(body[i]);
-            remove(body[i].idProceeding);
-        }
+        //editor_name = body[i].editor.split(',');
+        //search(body[i],editor_name);
+        adapt_keyword(body[i]);
+        
+        //if(typeof body[i].editor === 'string') {
+        //    console.log(body[i]);
+        //    remove(body[i].idProceeding);
+        //}
     }
   
 });
@@ -54,4 +56,20 @@ function remove(idProceeding) {
         if (err) { return console.log(err); }
         console.log(body);
     });
+}
+
+function adapt_keyword(proceeding) {
+    var stop_words = ['el','la','los','las','de','del','of','the','a','an','-', 'and','on','en'
+        ,'in','y','for','nº','e','i','o','u',':','un','uno','una','unas','unos','v','vol.','vol'];
+    var keywords = proceeding.title.split(' ');
+    var result = [];
+    for(var i=0; i<keywords.length; i++) {
+        var keyword = keywords[i].toLowerCase();
+        if(!stop_words.includes(keyword)) {
+            result.push(keyword);
+        }
+    }
+    proceeding.keywords = result;
+    //console.log(proceeding);
+    edit(proceeding);
 }

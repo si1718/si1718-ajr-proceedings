@@ -18,4 +18,7 @@ app.use(BASE_PATH + "/proceedings", ProceedingController);
 var TweetController = require("./tweet/TweetController");
 app.use(BASE_PATH + "/tweets", TweetController);
 
+var RecommendationController = require("./recommendation/RecommendationController");
+app.use(BASE_PATH + "/recommendations", RecommendationController);
+
 module.exports = app;

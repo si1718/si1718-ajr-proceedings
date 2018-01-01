@@ -86,3 +86,13 @@
         </form>
     </div>
 </div>
+
+<div class="col-xs-12" ng-show="recommendations">
+    <hr>
+    <h2>You might be interested...</h2>
+    <ul>
+        <li ng-repeat="idproceeding in recommendations.proceedings">
+            <a href="#!/edit/{{idproceeding}}">{{idproceeding}}</a>
+        </li>
+    </ul>
+</div>

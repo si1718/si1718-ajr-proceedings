@@ -12,14 +12,14 @@ var Recommendation = require("./Recommendation");
 /*********************************A P I***************************************/
 // GET a collection
 router.get('/', function(req, res) {
-    Recommendation.find({}, (err, recommendation) => {
+    Recommendation.find({}, (err, recommendations) => {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             res.sendStatus(500); // internal server error
         }
         else {
             console.log("INFO: New GET request to /recommendation");
-            res.send(recommendation);
+            res.send(recommendations);
         }
     });
 });

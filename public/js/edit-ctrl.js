@@ -24,6 +24,16 @@ angular.module("ProceedingManagerApp")
                         .get('https://si1718-jf-conferences.herokuapp.com/api/v1/conferences?search='+$scope.updated_proceeding.title)
                         .then((response) => {
                             $scope.conference = response.data[0];
+                        }, (err) => {
+                            console.log(err.data);
+                        });
+                    
+                    $http
+                        .get('/api/v1/recommendations/'+$scope.updated_proceeding.idProceeding)
+                        .then((response) => {
+                            $scope.recommendations = response.data;
+                        }, (err) => {
+                            console.log(err.data);
                         });
                 }, (err) => {
                     $scope.errorMessage = "An accoured a unexpected error: sorry!";

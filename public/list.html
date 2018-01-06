@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="proceeding in proceedings">
-                        <td><a href="#!/edit/{{proceeding.idProceeding}}">{{proceeding.title}}</a></td>
+                        <td><a href="#!/edit/{{proceeding.idProceeding}}">{{proceeding.title}}</a> <span ng-show="checkNew(proceeding._id)" class="badge">new</span></td>
                         <td>{{proceeding.year}}</td>
                         <td><a href='{{proceeding.editor.viewURL}}'>{{proceeding.editor.name}}</a></td>
                         <td>{{proceeding.coeditors.join("\n")}}</td>

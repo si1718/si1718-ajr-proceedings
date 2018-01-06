@@ -43,5 +43,11 @@ angular.module("ProceedingManagerApp")
                 });
         };
         
+        $scope.checkNew = function(id) {
+            var num_id = parseInt(id,16);
+            var reference = parseInt('5a4fa14560699803773d6baf',16);
+            return num_id > reference;
+        };
+        
         refresh();
     }]);
